@@ -5,7 +5,7 @@ local M = {}
 --Window Variables
 win_id = nil
 win_bufh = nil
-contents = nil
+params = {}
 
 local function create_window(win_title)
     print("_create_window()")
@@ -76,7 +76,7 @@ function M.select_menu_item()
     local idx = vim.fn.line(".")
     close_menu()
 
-    local filename = "src/"..contents[idx]
+    local filename = "src/"..params['contents'][idx]
 
     file = io.open(filename,"r")
 
@@ -138,19 +138,26 @@ function M.select_menu_item()
     vim.fn.setreg("c",arr);
     vim.fn.setreg("m",map);
 
+    --Return Command
+    if params['return'] then
+      vim.cmd(params['return'])
+    end
+
     -- M.nav_file(idx)
 end
 
-function M.toggle_quick_menu(win_title)
-    print("toggle_quick_menu("..win_title..")")
+function M.toggle_quick_menu(opts)
     if win_id ~= nil and vim.api.nvim_win_is_valid(win_id) then
         close_menu()
         return
     end
-    local win_info = create_window(win_title)
+    local win_info = create_window(opts["title"])
     local global_config = {}
 
-    contents = scandir()
+    params['contents'] = scandir()
+    params['return'] = opts['return']
+
+    -- contents = scandir()
     win_id = win_info.win_id
     win_bufh = win_info.bufnr
 
@@ -165,7 +172,7 @@ function M.toggle_quick_menu(win_title)
 
     vim.api.nvim_win_set_option(win_id, "number", true)
     vim.api.nvim_buf_set_name(win_bufh, "harpoon-menu")
-    vim.api.nvim_buf_set_lines(win_bufh, 0, #contents, false, contents)
+    vim.api.nvim_buf_set_lines(win_bufh, 0, #params['contents'], false, params['contents'])
     vim.api.nvim_buf_set_option(win_bufh, "filetype", "harpoon")
     vim.api.nvim_buf_set_option(win_bufh, "buftype", "acwrite")
     vim.api.nvim_buf_set_option(win_bufh, "bufhidden", "delete")

@@ -1,3 +1,4 @@
+
 local ls = require("luasnip")
 
 local s = ls.s
@@ -13,7 +14,8 @@ local fmt = require("luasnip.extras.fmt").fmt
 local rep = require("luasnip.extras").rep
 local p = require("luasnip.extras").partial
 
-local ui = require("vhdlkit.ui")
+local ckit = require("vhdlkit").get_component
+local mkit = require("vhdlkit").get_component_map
 
 local same = function(args)
   return f(function(arg)
@@ -31,11 +33,13 @@ end
 ls.add_snippets("vhdl", {
 
   s({trig = "comp", regTrig = true}, 
-    t(ui.get_component()),
+    -- t(kit.get_component()),
+    -- t(ckit()),
+    f(function ckit() end,{}),
     i(0)
   ),
   s({trig = "map", regTrig = true}, 
-    t(ui.get_component_map()),
+    f(function mkit() end,{}),
     i(0)
   ),
 },
