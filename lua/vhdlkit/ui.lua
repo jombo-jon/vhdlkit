@@ -8,7 +8,7 @@ win_bufh = nil
 params = {}
 
 local function create_window(win_title)
-    print("_create_window()")
+    -- print("_create_window()")
     -- local config = harpoon.get_menu_config()
     local config = {}
     local width = config.width or 60
@@ -42,28 +42,11 @@ end
 local function scandir()
   -- print(vim.inspect(vim.fn.system('tree src -fi')))
   local files = vim.fn.systemlist('ls src/ -1')
-  print(vim.inspect(files))
+  -- print(vim.inspect(files))
   return files
-  -- vim.fn.system('./test.sh')
-  -- print(vim.inspect(vim.fn.system('tree . -J')))
-  
-    -- local i, t, popen = 0, {}, io.popen
-    -- local pfile = popen('ls -a "'..directory..'"')
-    -- for filename in pfile:lines() do
-    --     i = i + 1
-    --     t[i] = filename
-    -- end
-    -- pfile:close()
-    -- return t
 end
 
 local function close_menu()
-    -- force_save = force_save or false
-    -- local global_config = harpoon.get_global_settings()
-
-    -- if global_config.save_on_toggle or force_save then
-    --     require("harpoon.ui").on_menu_save()
-    -- end
 
     vim.api.nvim_win_close(win_id, true)
 
@@ -134,7 +117,7 @@ function M.select_menu_item()
     end
     map[#map] = map[#map]:sub(1,-2) 
     table.insert(map,");")
-    print(map)
+    -- print(map)
     vim.fn.setreg("c",arr);
     vim.fn.setreg("m",map);
 
