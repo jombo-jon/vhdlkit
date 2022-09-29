@@ -144,21 +144,21 @@ function M.toggle_quick_menu(win_title)
         win_bufh,
         "n",
         "q",
-        "<Cmd>lua require('luatest.ui').toggle_quick_menu()<CR>",
+        "<Cmd>lua require('vhdlkit.ui').toggle_quick_menu()<CR>",
         { silent = true }
     )
     vim.api.nvim_buf_set_keymap(
         win_bufh,
         "n",
         "<ESC>",
-        "<Cmd>lua require('luatest.ui').toggle_quick_menu()<CR>",
+        "<Cmd>lua require('vhdlkit.ui').toggle_quick_menu()<CR>",
         { silent = true }
     )
     vim.api.nvim_buf_set_keymap(
         win_bufh,
         "n",
         "<CR>",
-        "<Cmd>lua require('luatest.ui').select_menu_item()<CR>",
+        "<Cmd>lua require('vhdlkit.ui').select_menu_item()<CR>",
         {}
     )
     -- vim.cmd(
