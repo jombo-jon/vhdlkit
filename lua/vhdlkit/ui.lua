@@ -1,7 +1,5 @@
 
-print("Hello Window")
 local popup = require("plenary.popup")
-
 local M = {}
 
 --Window Variables
@@ -105,9 +103,40 @@ function M.select_menu_item()
     file:close()
 
     -- Select the file read it and retrieve  the information and save
+    -- Map select the generics and the ports only
+    map = {}
+    for _,line in ipairs(arr) do
 
+      if string.find(line, "component [%w%d_-]* is") then
+        patterns = {"component", "is", " "}
+        for i,v in ipairs(patterns) do
+          line = string.gsub(line, v, "")
+        end
+        table.insert(map, "_ : " .. line)
+
+      elseif string.find(line, "generic") then
+        table.insert(map,"generic map(")
+
+      elseif string.find(line, "port") then
+        --remove comma from last element
+        map[#map] = map[#map]:sub(1,-2) 
+        table.insert(map,")")
+        table.insert(map,"port map(")
+
+      elseif string.find(line, "[%w%d_-]*.:.*") then
+        patterns = {"constant", " ", ":.*"}
+        for i,v in ipairs(patterns) do
+          line = string.gsub(line, v, "")
+        end
+        table.insert(map,"\t" .. line .. " =>  ,")
+      end
+
+    end
+    map[#map] = map[#map]:sub(1,-2) 
+    table.insert(map,");")
+    print(map)
     vim.fn.setreg("c",arr);
-    vim.fn.setreg("m","map");
+    vim.fn.setreg("m",map);
 
     -- M.nav_file(idx)
 end
