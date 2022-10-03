@@ -1,35 +1,45 @@
 
-print("VHDL Tool Kit")
+-- print("VHDL Tool Kit")
 
 local ui = require("vhdlkit.ui")
--- require("vhdlkit.snips")
 --
-local M = {}
+local vhdlkit = {}
 
-M.setup = function(opts)
-  
-  config = function() require('vhdlkit.snips') end
+-- Functions Definition
+function vhdlkit.setup(opts)
+
+  opts = opts or {}
+
+  -- --------------------------
+  -- Defautl Snips
+  -- require("vhdlkit.snips")
+
+  -- --------------------------
+  -- Defautl Keymaps
+  vim.api.nvim_set_keymap('n','<Leader>comp',':lua require("vhdlkit").get_component()<CR>', {})
+  vim.api.nvim_set_keymap('n','<Leader>map',':lua require("vhdlkit").get_component_map()<CR>', {})
+
 end
 
-M.get_component = function()
+function vhdlkit.get_component ()
   opts = {}
-  opts['title'] = "Get Component Map"
+  opts['title'] = "Get Component"
   opts['return'] = "normal \"cp"
   -- ui.toggle_quick_menu("Get Component")
+
+  vim.fn.setreg("c","");
   ui.toggle_quick_menu(opts)
-  -- vim.cmd('normal "cp')
+  vim.cmd('normal "cp')
 end
 
-M.get_component_map = function()
+function vhdlkit.get_component_map ()
   opts = {}
   opts['title'] = "Get Component Map"
   opts['return'] = "normal \"mp"
 
+  vim.fn.setreg("m","");
   ui.toggle_quick_menu(opts)
-  -- vim.cmd('normal "mp')
+  vim.cmd('normal "mp')
 end
 
--- vim.api.nvim_add_user_command('Upper', 'echo toupper(<q-args>)', { nargs = 0 })
--- vim.api.nvim_add_user_command('VHDLKit_Comp', M.get_component(), { nargs = 0 })
--- vim.api.nvim_add_user_command('VHDLKit_Map', M.get_component_map(), { nargs = 0 })
-return M
+return vhdlkit
