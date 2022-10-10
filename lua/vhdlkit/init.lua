@@ -20,7 +20,7 @@ function vhdlkit.setup(opts)
   vim.api.nvim_set_keymap('n','<Leader>map',':lua require("vhdlkit").get_component_map()<CR>', {})
 
   -- Requires GHDL and Make file
-  vim.api.nvim_set_keymap('n','<s-b>','<cmd>FLoatermNew --wintype=normal --name=GHDLSyntax --autoclose=0 make syntax<CR>', {})
+  vim.api.nvim_set_keymap('n','<s-b>','<Cmd>FloatermNew --wintype=normal --name=GHDLSyntax --autoclose=0 make syntax<CR>', {})
   --TODO: first a function that checks if there is a makefile in the directory ? or checks the ymal configuration file
   --for project
 
