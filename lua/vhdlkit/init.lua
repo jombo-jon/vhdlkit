@@ -21,12 +21,24 @@ function vhdlkit.setup(opts)
 
   -- Requires GHDL and Make file
   -- ghdl -s --iee=synopsys src/a.vhd --workdir=work/ --work=work 
-  vim.api.nvim_set_keymap('n','<s-b>','<Cmd>FloatermNew --wintype=normal --name=GHDLSyntax --autoclose=0 ghdl -s --ieee=synopsys --workdir=work/ --work=work/ %<CR>', {})
-  --TODO: first a function that checks if there is a makefile in the directory ? or checks the ymal configuration file
-  --for project
+  -- vim.api.nvim_set_keymap('n','<s-b>','<Cmd>FloatermNew --wintype=normal --name=GHDLSyntax --autoclose=0 ghdl -s --ieee=synopsys --workdir=work/ --work=work/ %<CR>', {})
+  vim.api.nvim_set_keymap('n','<s-b>','<Cmd>FloatermNew --wintype=normal --name=GHDLSyntax --autoclose=0 ghdl -s --ieee=synopsys %<CR>', {})
 
   
 end
+
+local function check_syntax()
+  
+end
+
+local function synthesize()
+  
+end
+
+local function align()
+  
+end
+   
 
 function vhdlkit.get_component ()
   opts = {}
